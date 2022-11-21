@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:news_cool_app/screens/discover_screen.dart';
 import 'package:news_cool_app/screens/home_page_screen.dart';
-import 'detail_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -14,13 +14,25 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
   static const List<Widget> _items = [
     HomePageScreen(),
-    DetailScreen(),
+    DiscoverScreen(),
     HomePageScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          splashRadius: 17,
+          onPressed: () {
+            debugPrint('test');
+          },
+          icon: const Icon(Icons.menu),
+        ),
+      ),
+      extendBodyBehindAppBar: true,
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
@@ -41,6 +53,7 @@ class _MainScreenState extends State<MainScreen> {
         ],
         showSelectedLabels: false,
         showUnselectedLabels: false,
+        selectedItemColor: Colors.white,
         elevation: 10,
         currentIndex: _selectedIndex,
         onTap: (value) => setState(() {

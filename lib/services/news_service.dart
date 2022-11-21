@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:news_cool_app/models/http_exception.dart';
 import 'package:news_cool_app/models/news_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,10 +11,12 @@ class NewsService {
     final url = Uri.parse(
         'https://newsapi.org/v2/top-headlines?country=id&apiKey=$_apiKey');
     try {
-      http.Response response = await http.get(url);
+      final http.Response response = await http.get(url);
+      if (response.statusCode != 200) {
+        throw HttpException('Could Not Load News');
+      }
       final decode = jsonDecode(response.body);
-      final result = Welcome.fromJson(decode);
-      return result.articles!;
+      return Welcome.fromJson(decode).articles!;
     } catch (error) {
       rethrow;
     }

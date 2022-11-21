@@ -9,7 +9,7 @@ class NewsProvider with ChangeNotifier {
     return [..._article];
   }
 
-  void getNews() async {
+  Future<void> getNews() async {
     try {
       final news = await NewsService.getNews();
       _article = news;
